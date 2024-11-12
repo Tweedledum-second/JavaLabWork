@@ -31,13 +31,22 @@ public class Window {
                 System.exit(0);
             }
         });
-        
-        textField.addActionListener(new java.io.() {
-            
+        /*
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed() {
+                textField.
+            }
         });
-        
+        */
         mainFrame.add(headerLabel);
         mainFrame.add(statusLabel);
         mainFrame.setVisible(true);
+        textField.setBackground(Color.red);
+        textField.setVisible(true);
+    }
+    
+    private void updateTextField() {
+        
     }
 }
