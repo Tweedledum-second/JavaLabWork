@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Window {
     private JFrame mainFrame;
     private JLabel headerLabel;
-    private JLabel statusLabel;
+    private JLabel informationLabel;
     private JTextField textField;
 
     public Window() {
@@ -17,13 +17,19 @@ public class Window {
     private void prepareGUI() {
         mainFrame = new JFrame("Compound Interest Calculation");
         mainFrame.setSize(400,400);
-        mainFrame.setLayout(new GridLayout(3,1));
+        mainFrame.setBackground(Color.BLACK);
+        //mainFrame.setLayout(new GridLayout(18,2));
         
         headerLabel = new JLabel("", JLabel.CENTER);
-        statusLabel = new JLabel("", JLabel.CENTER);
-        statusLabel.setSize(350,100);
-        textField = new JTextField();
-        textField.setSize(500, 50);
+        informationLabel = new JLabel("", JLabel.RIGHT);
+        informationLabel.setSize(100,100);
+        informationLabel.setText("Для работы программы придерживайтесь такой "
+                + "формы записи: число%количество_процентов=");
+        textField = new JTextField(10);
+        textField.setFont(new Font("Arial", Font.PLAIN , 12));
+        textField.setHorizontalAlignment(JTextField.LEFT);
+        textField.setSize(300, 14);
+        mainFrame.add(informationLabel);
         
         mainFrame.addWindowListener(new WindowAdapter() {
             @Override
@@ -31,18 +37,24 @@ public class Window {
                 System.exit(0);
             }
         });
-        /*
-        textField.addKeyListener(new KeyAdapter() {
+        
+      /*  textField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed() {
-                textField.
+            public void keyPressed(KeyEvent event) {
+                
             }
-        });
-        */
+            @Override
+        });*/
         mainFrame.add(headerLabel);
-        mainFrame.add(statusLabel);
+        mainFrame.add(informationLabel);
+        mainFrame.add(textField);
         mainFrame.setVisible(true);
-        textField.setBackground(Color.red);
+        informationLabel.setForeground(Color.WHITE);
+        informationLabel.setVisible(true);
+        textField.setBackground(Color.BLACK);
+        textField.setCaretColor(Color.WHITE);
+        textField.setSelectedTextColor(Color.WHITE);
+        textField.setForeground(Color.WHITE);
         textField.setVisible(true);
     }
     
