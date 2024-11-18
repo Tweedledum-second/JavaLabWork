@@ -6,9 +6,9 @@ import javax.swing.*;
 
 public class Window {
     private JFrame mainFrame;
-    private JLabel headerLabel;
-    private JLabel informationLabel;
+    private JTextArea informationLabel;
     private JTextField textField;
+    private JPanel textPanel;
 
     public Window() {
         prepareGUI();
@@ -16,19 +16,29 @@ public class Window {
     
     private void prepareGUI() {
         mainFrame = new JFrame("Compound Interest Calculation");
-        mainFrame.setSize(400,400);
-        mainFrame.setBackground(Color.BLACK);
-        //mainFrame.setLayout(new GridLayout(18,2));
+        mainFrame.setSize(600,400);
+        mainFrame.setBackground(Color.WHITE);
+        mainFrame.setLocationRelativeTo(null);
         
-        headerLabel = new JLabel("", JLabel.CENTER);
-        informationLabel = new JLabel("", JLabel.RIGHT);
-        informationLabel.setSize(100,100);
+        textPanel = new JPanel(new BorderLayout(1,2));
+        
+        informationLabel = new JTextArea();
         informationLabel.setText("Для работы программы придерживайтесь такой "
-                + "формы записи: число%количество_процентов=");
+                + "формы записи: число%количество_процентов,количество_циклов=");
+        informationLabel.setWrapStyleWord(true);
+        informationLabel.setLineWrap(true);
+        informationLabel.setEditable(false);
+        informationLabel.setSize(600,100);
+        
         textField = new JTextField(10);
         textField.setFont(new Font("Arial", Font.PLAIN , 12));
-        textField.setHorizontalAlignment(JTextField.LEFT);
-        textField.setSize(300, 14);
+        textField.setHorizontalAlignment(JTextField.CENTER);
+        textField.setSize(200, 200);
+        
+        textPanel.add(informationLabel);
+        textPanel.add(textField);
+        
+        
         mainFrame.add(informationLabel);
         
         mainFrame.addWindowListener(new WindowAdapter() {
@@ -45,16 +55,23 @@ public class Window {
             }
             @Override
         });*/
-        mainFrame.add(headerLabel);
-        mainFrame.add(informationLabel);
-        mainFrame.add(textField);
-        mainFrame.setVisible(true);
+              
+        informationLabel.setBackground(Color.BLACK);
         informationLabel.setForeground(Color.WHITE);
-        informationLabel.setVisible(true);
+        informationLabel.setDisabledTextColor(Color.WHITE);
+        informationLabel.setSelectedTextColor(Color.red);
+        
         textField.setBackground(Color.BLACK);
         textField.setCaretColor(Color.WHITE);
-        textField.setSelectedTextColor(Color.WHITE);
         textField.setForeground(Color.WHITE);
+        
+        mainFrame.setBackground(Color.BLACK);
+        mainFrame.getContentPane().add(BorderLayout.NORTH, textPanel);
+        //mainFrame.getContentPane().add(BorderLayout.CENTER, textField);
+
+        mainFrame.setVisible(true);
+        textPanel.setVisible(true);
+        informationLabel.setVisible(true);
         textField.setVisible(true);
     }
     
