@@ -9,14 +9,17 @@ public class Window {
     private JTextArea informationLabel;
     private JTextField textField;
     private JPanel textPanel;
+    private KeyAdapter controller;
+    private CompoundInterestCalculation calculator;
 
     public Window() {
         prepareGUI();
     }
     
     private void prepareGUI() {
+        calculator = new CompoundInterestCalculation();
         mainFrame = new JFrame("Compound Interest Calculation");
-        mainFrame.setSize(600,400);
+        mainFrame.setSize(400,400);
         mainFrame.setBackground(Color.WHITE);
         mainFrame.setLocationRelativeTo(null);
         
@@ -24,7 +27,7 @@ public class Window {
         
         informationLabel = new JTextArea();
         informationLabel.setText("Для работы программы придерживайтесь такой "
-                + "формы записи: число%количество_процентов,количество_циклов=");
+                + "формы записи: число%процент,циклы=");
         informationLabel.setWrapStyleWord(true);
         informationLabel.setLineWrap(true);
         informationLabel.setEditable(false);
@@ -48,13 +51,14 @@ public class Window {
             }
         });
         
-      /*  textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent event) {
-                
-            }
-            @Override
-        });*/
+        controller =  new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent event) {
+            executeKeyPressed(event);
+        }
+    };
+        
+        textField.addKeyListener(controller);
               
         informationLabel.setBackground(Color.BLACK);
         informationLabel.setForeground(Color.WHITE);
@@ -77,5 +81,11 @@ public class Window {
     
     private void updateTextField() {
         
+    }
+    
+    private void executeKeyPressed(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.VK_ENTER) {
+            calculator.calculateCompoundInterest(textField.getText());
+        }
     }
 }
