@@ -85,7 +85,7 @@ public class Window {
     
     private void executeKeyPressed(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.VK_ENTER) {
-            calculator.calculateCompoundInterest(textField.getText());
+            textField.setText(textField.getText().concat(calculator.calculateCompoundInterest(textField.getText())));
         }
     }
 }
