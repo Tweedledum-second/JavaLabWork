@@ -9,6 +9,7 @@ public class CompoundInterestCalculation {
         int percentIndex;
         int commaIndex;
         int equalIndex;
+        int periods;
         BigDecimal number = new BigDecimal(0);
         
         //вывод массива символов, полученного из строки
@@ -26,14 +27,15 @@ public class CompoundInterestCalculation {
         
         
         //вычисляются, но не верно
-        
+        System.out.println("before calculation" + number.floatValue());
         number = calculateNumber(charArray, 0, percentIndex); // = 0
         System.out.println("number " + number.floatValue());
         final BigDecimal percent = calculateNumber(charArray, ++percentIndex, commaIndex).divide(new BigDecimal(100)); // = 0
         System.out.println("percent " + percent.floatValue());
+        periods = calculateNumber(charArray, commaIndex + 1);
         
-        for (int i = 0; i < calculateNumber(charArray, commaIndex); i++) {
-            number.multiply(percent);
+        for (int i = 0; i < periods; i++) {
+            number = number.multiply(percent);
             System.out.println("percent");
         }
         
@@ -50,8 +52,12 @@ public class CompoundInterestCalculation {
         int pointIndex = searchForChar(digit, '.',  beginIndex, endIndex);
         
         for (int i = beginIndex; i < endIndex ; i++) {
-            if(i != pointIndex) {
-                number = number.add(new BigDecimal(digit[i] * Math.pow(10, pointIndex - i))); //получение заданного числа
+            if(i != pointIndex && pointIndex != -1) {
+                number = number.add(new BigDecimal(Character.getNumericValue(digit[i]) * Math.pow(10, pointIndex - i - 1))); //получение заданного числа
+                System.out.println("calculating for " + i + " = " + number.floatValue());
+            }
+            if (pointIndex == -1) {
+                number = number.add(new BigDecimal(Character.getNumericValue(digit[i]) * Math.pow(10, endIndex - i - 1)));
             }
             System.out.println("number");
         }
@@ -62,9 +68,9 @@ public class CompoundInterestCalculation {
         int periodsNumber = 0;
         int endIndex = searchForChar(digit, '=', currentIndex, digit.length);
         
-        for (int i = currentIndex; i < endIndex - 1; i++) {
-            periodsNumber += Math.pow(10, endIndex - i - 1);
-            System.out.println("period");
+        for (int i = currentIndex; i < endIndex ; i++) {
+            periodsNumber += Character.getNumericValue(digit[i]) * Math.pow(10, endIndex - i - 1);
+            System.out.println("period " + periodsNumber + " | " + i);
         }
         
         return periodsNumber;
@@ -76,7 +82,7 @@ public class CompoundInterestCalculation {
         for (chIndex = beginIndex; charArray[chIndex] != ch && chIndex < endIndex; chIndex++) {
             System.out.println("search");
             if (chIndex == endIndex - 1){
-                chIndex = 0;//если символа в указаннй части массива нет, то устанавливается нулевое значение
+                chIndex = -1;//если символа в указаннй части массива нет, то устанавливается нулевое значение
                 break;
             }
         }

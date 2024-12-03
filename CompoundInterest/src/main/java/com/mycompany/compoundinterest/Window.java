@@ -9,6 +9,7 @@ public class Window {
     private JTextArea informationLabel;
     private JTextField textField;
     private JPanel textPanel;
+    private JButton button;
     private KeyAdapter controller;
     private CompoundInterestCalculation calculator;
 
@@ -68,6 +69,9 @@ public class Window {
         textField.setBackground(Color.BLACK);
         textField.setCaretColor(Color.WHITE);
         textField.setForeground(Color.WHITE);
+        
+        //button = new JButton("Переключение режима"); нужно сделать переключение режимов
+        //button.addActionListener(new ActionListener());
         
         mainFrame.setBackground(Color.BLACK);
         mainFrame.getContentPane().add(BorderLayout.NORTH, textPanel);
